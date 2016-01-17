@@ -1,0 +1,25 @@
+{
+  "name": "migrations",
+  "version": "1.0.0",
+  "description": "Just like how we use Git to version control source code, we use migrations to manage the state of our database schemas.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matzy20/Migrations.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matzy20/Migrations/issues"
+  },
+  "homepage": "https://github.com/matzy20/Migrations#readme",
+  "dependencies": {
+    "pg": "^4.4.3",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.17.3"
+  }
+}
