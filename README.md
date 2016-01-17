@@ -6,6 +6,9 @@ Imagine you're working on project with another developer, and you're both tasked
 
 Let's say you and your friend divided the work in a way so that neither of you will have to to use each other's code to finish your tasks. While you're working on your part of the application, you only really need to touch the `Users` table when you are working with the database.
 
+# Before you begin
+Make sure that the project you are in is a node project (it has a `package.json`) and you have already installed and initialized sequelize (`npm install --save sequelize`, `sequelize init`).
+
 # Creating models and migrations
 
 Using `sequelize-cli` you can easily create and manage your models and migrations. It has a useful command called `model:create`, which will generate 2 files for you: a __model__ file and a corresponding __migration__ file.
@@ -25,44 +28,26 @@ Notice the `--name` and `--attributes` _flags_. these let us tell the program th
 For a list of all the valid data types Sequelize has to offer, see: http://docs.sequelizejs.com/en/latest/api/datatypes/
 
 This will generate 2 files for you:
-**models/User.js**
+**models/user.js**
 ```
 'use strict';
-module.exports = {
-  up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('Users', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      first_name: {
-        type: Sequelize.STRING
-      },
-      last_name: {
-        type: Sequelize.STRING
-      },
-      bio: {
-        type: Sequelize.TEXT
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+module.exports = function(sequelize, DataTypes) {
+  var User = sequelize.define('User', {
+    firstName: DataTypes.STRING,
+    lastName: DataTypes.STRING,
+    username: DataTypes.STRING
+  }, {
+    classMethods: {
+      associate: function(models) {
+        // associations can be defined here
       }
-    });
-  },
-  down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('Users');
-  }
+    }
+  });
+  return User;
 };
 ```
 
-**migrations/<timestamp>-create-user.js**
+**migrations/{timestamp}-create-user.js**
 ```
 'use strict';
 module.exports = {
@@ -110,7 +95,7 @@ For a list of migration functions, see: http://sequelize.readthedocs.org/en/late
 Let's pretend you have jammed out 50 new commits while working with your newly created `Users` table, merged in your friends `Events`, and realize that you forgot to add in an `email` column to the table! Don't worry, this is not a problem.
 
 ```
-sequelize create:migration --name add-email-to-user
+sequelize migration:create --name add-email-to-user
 ```
 
 This time you run the command, it only generates a migration file for you. When you open it, you notice it's pretty bare!
