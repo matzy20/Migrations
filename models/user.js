@@ -13,7 +13,8 @@ module.exports = function(sequelize, DataTypes) {
         isEmail: true
       }
     }
-  }, {
+  },
+  {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
